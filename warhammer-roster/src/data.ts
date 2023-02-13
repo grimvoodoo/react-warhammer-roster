@@ -1,7 +1,7 @@
 
 // these values should be stored in a db somewhere
 export const shock_trooper: number[] = [6, 4, 4, 3, 3, 1, 1, 6, 5]
-export const shock_trooper_sergeant = [6, 4, 4, 3, 3, 1, 2, 7, 5]
+export const shock_trooper_sergeant: number[] = [6, 4, 4, 3, 3, 1, 2, 7, 5]
 
 // I can use this function to map a variable to each value in a units stats. this means
 // I can call `const trooper = stats(shock_trooper)` then it will map the values, so I can then do:
