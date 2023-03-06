@@ -3,6 +3,10 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
 }
 
+.unit {
+    display: flex;
+}
+
 .expense-date {
     display: flex;
     flex-direction: column;
