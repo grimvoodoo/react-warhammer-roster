@@ -1,27 +1,33 @@
 import { useState } from "react";
-import Card from "../ui/Card";
-export const ExpenseForm = () => {
-    const titleChangeHandler = (event: any) => {
-        setUserInput((prevState) => {
+
+export const ExpenseForm = (props) => {
+    interface iState {
+        title: String;
+        amount: Number;
+        date: Date;
+    }
+
+    const titleChangeHandler = (event) => {
+        setUserInput((prevState: iState) => {
             return {
                 ...prevState,
-                myTitle: event.target.value,
+                title: event.target.value,
             };
         });
     };
-    const amountChangeHandler = (event: any) => {
-        setUserInput((prevState) => {
+    const amountChangeHandler = (event) => {
+        setUserInput((prevState: iState) => {
             return {
                 ...prevState,
-                myAmount: event.target.value,
+                amount: event.target.value,
             };
         });
     };
-    const dateChangeHandler = (event: any) => {
-        setUserInput((prevState) => {
+    const dateChangeHandler = (event) => {
+        setUserInput((prevState: iState) => {
             return {
                 ...prevState,
-                myDate: event.target.value,
+                date: event.target.value,
             };
         });
     };
@@ -29,29 +35,41 @@ export const ExpenseForm = () => {
     // const [myAmount, setMyAmount] = useState("");
     // const [myDate, setMyDate] = useState("");
 
-    const [userInput, setUserInput] = useState({
-        myTitle: "",
-        myAmount: "",
-        myDate: "",
+    const [userInput, setUserInput]: any = useState({
+        title: "",
+        amount: "",
+        date: "",
     });
 
-    const clickHandler = () => {
-        console.log(userInput);
+    const submitHander = (event) => {
+        event.preventDefault();
+        // console.log(userInput);
+        props.onSaveExpenseData(userInput);
+        setUserInput({
+            title: "",
+            amount: "",
+            date: "",
+        });
     };
 
     return (
-        <form>
+        <form onSubmit={submitHander}>
             <div className="new-expense__controls">
                 <div className="new-expense__control">
                     <label>Title</label>
-                    <input type="text" onChange={titleChangeHandler} />
+                    <input
+                        type="text"
+                        value={userInput.title}
+                        onChange={titleChangeHandler}
+                    />
                 </div>
                 <div className="new-expense__control">
                     <label>Amount</label>
                     <input
                         type="number"
-                        min="0.01"
-                        step="0.01"
+                        value={userInput.amount}
+                        // min="0.01"
+                        // step="0.01"
                         onChange={amountChangeHandler}
                     />
                 </div>
@@ -59,16 +77,15 @@ export const ExpenseForm = () => {
                     <label>Date</label>
                     <input
                         type="date"
-                        min="2019-01-01"
-                        max="2022-12-31"
+                        value={userInput.date}
+                        // min="2019-01-01"
+                        // max="2022-12-31"
                         onChange={dateChangeHandler}
                     />
                 </div>
             </div>
             <div className="new-expense__actions">
-                <button type="submit" onClick={clickHandler}>
-                    Submit
-                </button>
+                <button type="submit">Submit</button>
             </div>
         </form>
     );
